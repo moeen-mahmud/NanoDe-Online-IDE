@@ -20,7 +20,6 @@ const useCustomTheme = () => {
           paper: "#03091f",
           primary: "#0b1126",
           secondary: "#141a30",
-          card: "#171d31",
         },
         text: {
           primary: "#ffffff",

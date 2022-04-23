@@ -23,6 +23,7 @@ const CodeEditor = ({
         </Typography>
       </Stack>
       <Editor
+        defaultValue="// Scratch some ideas 💡"
         language={codeLanguage}
         defaultLanguage="c"
         options={{

@@ -8,6 +8,9 @@ import OutputBox from "../Components/OutputBox/OutputBox";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import axios from "axios";
 import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
+import CodeInformationBox from "../Components/CodeInformationBox/CodeInformationBox";
+import { LoadingButton } from "@mui/lab";
+import LayersClearIcon from "@mui/icons-material/LayersClear";
 
 function decodeBase64(str) {
   return decodeURIComponent(window.atob(str));
@@ -22,8 +25,8 @@ const Playground = () => {
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [languageID, setLanguageID] = useState(50);
   const [compilerInfos, setCompilerInfos] = useState({
-    executionTime: 0.0,
-    executionMemory: 0.0,
+    executionTime: "",
+    executionMemory: "",
     compileOutput: "",
     status: "",
   });
@@ -131,14 +134,29 @@ const Playground = () => {
             });
           }
         } catch (err) {
-          console.log(err.message);
+          console.log("Error", err.message);
         }
       }
     } catch (err) {
-      console.log(err.message);
+      console.log("Error", err.message);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Handle Reset
+  const handleReset = (e) => {
+    e.preventDefault();
+    setUserCode(``);
+    setUserInput(``);
+    setCodeLanguage("c");
+    setLanguageID(50);
+    setCompilerInfos({
+      executionMemory: "",
+      executionTime: "",
+      compileOutput: "",
+      status: "",
+    });
   };
 
   return (
@@ -176,22 +194,46 @@ const Playground = () => {
             </Grid>
             <Grid item xs={1} md={4}>
               <InputBox userInput={userInput} handleChange={handleUserInput} />
+              <CodeInformationBox
+                status={compilerInfos?.status}
+                execTime={compilerInfos?.executionTime}
+                execMemory={compilerInfos?.executionMemory}
+              />
               <Stack
                 mt={3}
-                direction="row"
+                direction="column"
                 justifyContent="center"
                 alignItems="center"
+                gap={1.5}
               >
-                <Button
-                  // disabled={userCode ? false : true}
-                  onClick={handleRunCode}
-                  variant="contained"
-                  color="tertiary"
-                  startIcon={<RocketLaunchIcon />}
-                  fullWidth
-                >
-                  Run
-                </Button>
+                {isLoading ? (
+                  <LoadingButton loading variant="contained" fullWidth>
+                    Loading
+                  </LoadingButton>
+                ) : (
+                  <Button
+                    disabled={userCode ? false : true}
+                    onClick={handleRunCode}
+                    variant="contained"
+                    color="tertiary"
+                    startIcon={<RocketLaunchIcon />}
+                    fullWidth
+                  >
+                    Run
+                  </Button>
+                )}
+                {compilerInfos?.status ? (
+                  <Button
+                    disabled={userCode ? false : true}
+                    onClick={handleReset}
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<LayersClearIcon />}
+                    fullWidth
+                  >
+                    Reset
+                  </Button>
+                ) : null}
               </Stack>
             </Grid>
           </Grid>
