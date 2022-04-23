@@ -50,7 +50,12 @@ const Playground = () => {
         handleChangeFontSize={handleChangeFontSize}
       >
         <Box sx={{ minHeight: "80vh" }}>
-          <Grid container columns={{ xs: 1, md: 12 }} spacing={{ md: 4 }}>
+          <Grid
+            container
+            columns={{ xs: 1, md: 12 }}
+            spacing={{ md: 4 }}
+            rowSpacing={{ xs: 2 }}
+          >
             <Grid item xs={1} md={8}>
               <CodeEditor
                 setUserCode={setUserCode}
