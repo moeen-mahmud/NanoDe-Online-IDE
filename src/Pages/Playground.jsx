@@ -7,10 +7,10 @@ import InputBox from "../Components/InputBox/InputBox";
 import OutputBox from "../Components/OutputBox/OutputBox";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import axios from "axios";
+import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
 
 const Playground = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [processingMessage, setProcessingMessage] = useState("");
 
   // Compiling
   const [userCode, setUserCode] = useState(``);
@@ -28,9 +28,9 @@ const Playground = () => {
   });
 
   // Editor options states
-  const [codeTheme, setCodeTheme] = React.useState("vs-dark");
-  const [codeFont, setCodeFont] = React.useState("'Fira Code', monospace");
-  const [codeFontSize, setCodeFontSize] = React.useState(18);
+  const [codeTheme, setCodeTheme] = useState("vs-dark");
+  const [codeFont, setCodeFont] = useState("'Fira Code', monospace");
+  const [codeFontSize, setCodeFontSize] = useState(18);
 
   // Event handlers
   const handleLanguageChange = (event) => {
@@ -56,7 +56,6 @@ const Playground = () => {
   const handleRunCode = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setProcessingMessage("");
 
     // Post the user codes
     try {
@@ -118,10 +117,13 @@ const Playground = () => {
           }
         } catch (err) {
           console.log(err.message);
+        } finally {
         }
       }
     } catch (err) {
       console.log(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -138,6 +140,10 @@ const Playground = () => {
         codeFontSize={codeFontSize}
         handleChangeFontSize={handleChangeFontSize}
       >
+        <PrimaryLinearProgress
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+        />
         <Box sx={{ minHeight: "80vh" }}>
           <Grid
             container

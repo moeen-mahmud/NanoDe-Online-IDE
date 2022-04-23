@@ -12,7 +12,14 @@ const OutputBox = ({ outputData }) => {
           Output
         </Typography>
       </Stack>
-      <FilledInput value={outputData} readOnly multiline rows={5} fullWidth />
+      <FilledInput
+        disableUnderline
+        value={outputData}
+        readOnly
+        multiline
+        rows={5}
+        fullWidth
+      />
     </Box>
   );
 };

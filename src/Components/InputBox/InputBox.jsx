@@ -13,11 +13,13 @@ const InputBox = ({ userInput, handleChange }) => {
         </Typography>
       </Stack>
       <FilledInput
+        autoComplete="off"
         value={userInput}
         onChange={handleChange}
         multiline
         rows={6}
         fullWidth
+        disableUnderline
       />
     </Box>
   );
