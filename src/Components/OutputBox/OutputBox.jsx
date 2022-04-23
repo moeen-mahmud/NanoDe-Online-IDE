@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@mui/system";
-import { FilledInput, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 
-const OutputBox = ({ outputData }) => {
+const OutputBox = ({ status, outputData }) => {
   return (
     <Box width="100%">
       <Stack direction="row" alignItems="center" mb={2} gap={1}>
@@ -12,14 +12,22 @@ const OutputBox = ({ outputData }) => {
           Output
         </Typography>
       </Stack>
-      <FilledInput
-        disableUnderline
-        value={outputData}
-        readOnly
-        multiline
-        rows={5}
-        fullWidth
-      />
+      <Paper sx={{ borderRadius: "3px", height: 300, p: 3 }}>
+        <Typography
+          color={status === "Accepted" ? "text.tertiary" : "text.secondary"}
+          sx={{ fontFamily: "'Fira Code', monospace" }}
+          variant="caption"
+        >
+          {outputData ? (
+            <>{outputData}</>
+          ) : (
+            <Typography color="text.tertiary">
+              Write some code, grab some coffee ☕ then hit the run to see the
+              OUTPUT!
+            </Typography>
+          )}
+        </Typography>
+      </Paper>
     </Box>
   );
 };

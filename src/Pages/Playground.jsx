@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import Layout from "../Components/Layout/Layout";
 import CodeEditor from "../Components/Editor/CodeEditor";
-import { Button, Grid, Stack } from "@mui/material";
+import { Button, Container, Grid, Stack } from "@mui/material";
 import InputBox from "../Components/InputBox/InputBox";
 import OutputBox from "../Components/OutputBox/OutputBox";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import axios from "axios";
 import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
+
+function decodeBase64(str) {
+  return decodeURIComponent(window.atob(str));
+}
 
 const Playground = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,9 +22,6 @@ const Playground = () => {
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [languageID, setLanguageID] = useState(50);
   const [compilerInfos, setCompilerInfos] = useState({
-    stdOut: "",
-    stdErr: "",
-    message: "",
     executionTime: 0.0,
     executionMemory: 0.0,
     compileOutput: "",
@@ -30,7 +31,7 @@ const Playground = () => {
   // Editor options states
   const [codeTheme, setCodeTheme] = useState("vs-dark");
   const [codeFont, setCodeFont] = useState("'Fira Code', monospace");
-  const [codeFontSize, setCodeFontSize] = useState(18);
+  const [codeFontSize, setCodeFontSize] = useState(14);
 
   // Event handlers
   const handleLanguageChange = (event) => {
@@ -75,6 +76,7 @@ const Playground = () => {
       );
       // Post response data
       const data = response.data;
+      console.log(data);
 
       // Check whether the token is getting
       if (data?.token) {
@@ -91,33 +93,45 @@ const Playground = () => {
           );
           // Setting submission data
           const submissionData = submission.data;
-
+          console.log(submissionData);
           // storing submission data
           const submissionStdOut = submissionData?.stdout;
           const submissionExecTime = submissionData?.time;
           const submissionExecMemory = submissionData?.memory;
           const submissionStdErr = submissionData?.stderr;
           const submissionCompileOutput = submissionData?.compile_output;
-          const submissionMessage = submissionData?.message;
           const submissionStatus = submissionData?.status?.description;
 
-          setCompilerInfos({
-            stdOut: submissionStdOut,
-            stdErr: submissionStdErr,
-            message: submissionMessage,
-            executionTime: submissionExecTime,
-            executionMemory: submissionExecMemory,
-            compileOutput: submissionCompileOutput,
-            status: submissionStatus,
-          });
+          if (submissionCompileOutput) {
+            // Decoding
+            const decodeCompiledOutput = decodeBase64(submissionCompileOutput);
 
-          if (!submissionStdErr) {
-            const decryptSubmissionData = atob(submissionStdOut);
-            setCompilerInfos({ stdOut: decryptSubmissionData });
+            // setting
+            setCompilerInfos({
+              compileOutput: decodeCompiledOutput,
+              status: submissionStatus,
+            });
+          } else if (submissionStdErr) {
+            // Decoding
+            const decodeCompileOutput = decodeBase64(submissionStdErr);
+
+            // setting
+            setCompilerInfos({
+              compileOutput: decodeCompileOutput,
+              status: submissionStatus,
+            });
+          } else {
+            // Decoding
+            const decodeStdOutput = decodeBase64(submissionStdOut);
+            setCompilerInfos({
+              compileOutput: decodeStdOutput,
+              status: submissionStatus,
+              executionTime: submissionExecTime,
+              executionMemory: submissionExecMemory,
+            });
           }
         } catch (err) {
           console.log(err.message);
-        } finally {
         }
       }
     } catch (err) {
@@ -144,7 +158,7 @@ const Playground = () => {
           isLoading={isLoading}
           setIsLoading={setIsLoading}
         />
-        <Box sx={{ minHeight: "80vh" }}>
+        <Container>
           <Grid
             container
             columns={{ xs: 1, md: 12 }}
@@ -182,9 +196,12 @@ const Playground = () => {
             </Grid>
           </Grid>
           <Box mt={3}>
-            <OutputBox outputData={compilerInfos?.stdOut} />
+            <OutputBox
+              status={compilerInfos?.status}
+              outputData={compilerInfos?.compileOutput}
+            />
           </Box>
-        </Box>
+        </Container>
       </Layout>
     </Box>
   );

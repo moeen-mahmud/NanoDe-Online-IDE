@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/system";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Editor from "@monaco-editor/react";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 
@@ -11,6 +11,9 @@ const CodeEditor = ({
   fontSize,
   setUserCode,
 }) => {
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
+
   return (
     <Box>
       <Stack direction="row" alignItems="center" mb={2} gap={1}>
@@ -39,10 +42,12 @@ const CodeEditor = ({
           cursorBlinking: "expand",
           cursorStyle: "line",
           cursorSmoothCaretAnimation: true,
-          cursorWidth: 4,
+          cursorWidth: 3,
+          formatOnType: true,
+          formatOnPaste: true,
         }}
         theme={theme}
-        height="80vh"
+        height={isMobile ? "500px" : "600px"}
         width="100%"
         onChange={(code) => setUserCode(code)}
       />
