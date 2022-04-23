@@ -14,10 +14,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import CodeOffIcon from "@mui/icons-material/CodeOff";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import ThemeSelect from "../Select/ThemeSelect";
+import { Stack } from "@mui/material";
 
 const drawerWidth = 240;
 
-const Layout = ({ children }) => {
+const Layout = ({ themeSelect, handleThemeSelect, children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -42,13 +44,7 @@ const Layout = ({ children }) => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        // sx={{
-        //   width: { sm: `calc(100% - ${drawerWidth}px)` },
-        //   ml: { sm: `${drawerWidth}px` },
-        // }}
-      >
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -59,7 +55,7 @@ const Layout = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography noWrap component="div">
+          <Typography noWrap component="div" flexGrow={1}>
             <Typography
               variant="h6"
               sx={{
@@ -74,6 +70,12 @@ const Layout = ({ children }) => {
               Write CPP code faster
             </Typography>
           </Typography>
+          <Stack direction="row" justifyContent="flex-end" alignItems="center">
+            <ThemeSelect
+              codeTheme={themeSelect}
+              handleChange={handleThemeSelect}
+            />
+          </Stack>
         </Toolbar>
       </AppBar>
       <Box
