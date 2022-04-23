@@ -9,9 +9,12 @@ import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import axios from "axios";
 
 const Playground = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [processingMessage, setProcessingMessage] = useState("");
+
   // Compiling
   const [userCode, setUserCode] = useState(``);
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState(``);
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [languageID, setLanguageID] = useState(50);
   const [compilerInfos, setCompilerInfos] = useState({
@@ -20,6 +23,8 @@ const Playground = () => {
     message: "",
     executionTime: 0.0,
     executionMemory: 0.0,
+    compileOutput: "",
+    status: "",
   });
 
   // Editor options states
@@ -50,7 +55,10 @@ const Playground = () => {
   // Handle Code Run
   const handleRunCode = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setProcessingMessage("");
 
+    // Post the user codes
     try {
       const response = await axios.post(
         "https://judge0-ce.p.rapidapi.com/submissions",
@@ -66,9 +74,13 @@ const Playground = () => {
           },
         }
       );
+      // Post response data
       const data = response.data;
+
+      // Check whether the token is getting
       if (data?.token) {
         try {
+          // Request to get the submission
           const submission = await axios.get(
             `https://judge0-ce.p.rapidapi.com/submissions/${data.token}?base64_encoded=true`,
             {
@@ -78,16 +90,36 @@ const Playground = () => {
               },
             }
           );
+          // Setting submission data
           const submissionData = submission.data;
-          if (submissionData.stdout) {
-            const decryptSubmissionData = atob(submissionData.stdout);
+
+          // storing submission data
+          const submissionStdOut = submissionData?.stdout;
+          const submissionExecTime = submissionData?.time;
+          const submissionExecMemory = submissionData?.memory;
+          const submissionStdErr = submissionData?.stderr;
+          const submissionCompileOutput = submissionData?.compile_output;
+          const submissionMessage = submissionData?.message;
+          const submissionStatus = submissionData?.status?.description;
+
+          setCompilerInfos({
+            stdOut: submissionStdOut,
+            stdErr: submissionStdErr,
+            message: submissionMessage,
+            executionTime: submissionExecTime,
+            executionMemory: submissionExecMemory,
+            compileOutput: submissionCompileOutput,
+            status: submissionStatus,
+          });
+
+          if (!submissionStdErr) {
+            const decryptSubmissionData = atob(submissionStdOut);
             setCompilerInfos({ stdOut: decryptSubmissionData });
           }
         } catch (err) {
           console.log(err.message);
         }
       }
-      console.log(data);
     } catch (err) {
       console.log(err.message);
     }
