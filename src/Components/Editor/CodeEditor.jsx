@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import { Stack, Typography } from "@mui/material";
 import Editor from "@monaco-editor/react";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 
 const CodeEditor = ({
   codeLanguage,
@@ -13,6 +13,12 @@ const CodeEditor = ({
 }) => {
   return (
     <Box>
+      <Stack direction="row" alignItems="center" mb={2} gap={1}>
+        <DriveFileRenameOutlineIcon sx={{ color: "#00E0C4" }} />
+        <Typography variant="subtitle1" color="text.secondary">
+          Write some code here
+        </Typography>
+      </Stack>
       <Editor
         language={codeLanguage}
         defaultLanguage="c"
@@ -40,13 +46,6 @@ const CodeEditor = ({
         width="100%"
         onChange={(code) => setUserCode(code)}
       />
-      <Button
-        variant="contained"
-        color="tertiary"
-        startIcon={<SettingsSuggestIcon />}
-      >
-        Run
-      </Button>
     </Box>
   );
 };

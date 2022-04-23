@@ -153,6 +153,7 @@ const Layout = ({ children, ...props }) => {
         sx={{
           flexGrow: 1,
           p: 3,
+          mb: 5,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >

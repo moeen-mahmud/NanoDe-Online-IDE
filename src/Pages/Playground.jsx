@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import Layout from "../Components/Layout/Layout";
 import CodeEditor from "../Components/Editor/CodeEditor";
+import { Grid } from "@mui/material";
+import InputBox from "../Components/InputBox/InputBox";
 
 const Playground = () => {
   const [userCode, setUserCode] = useState(``);
-  // Editor options
+
+  // Editor options states
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [languageID, setLanguageID] = useState(50);
 
@@ -13,6 +16,7 @@ const Playground = () => {
   const [codeFont, setCodeFont] = React.useState("'Fira Code', monospace");
   const [codeFontSize, setCodeFontSize] = React.useState(18);
 
+  // Event handlers
   const handleLanguageChange = (event) => {
     setCodeLanguage(event.target.value);
   };
@@ -44,14 +48,21 @@ const Playground = () => {
         codeFontSize={codeFontSize}
         handleChangeFontSize={handleChangeFontSize}
       >
-        <Box sx={{ height: "80vh" }}>
-          <CodeEditor
-            setUserCode={setUserCode}
-            codeLanguage={codeLanguage}
-            theme={codeTheme}
-            fontFamily={codeFont}
-            fontSize={codeFontSize}
-          />
+        <Box sx={{ minHeight: "80vh" }}>
+          <Grid container columns={{ xs: 1, md: 12 }} spacing={{ md: 4 }}>
+            <Grid item xs={1} md={8}>
+              <CodeEditor
+                setUserCode={setUserCode}
+                codeLanguage={codeLanguage}
+                theme={codeTheme}
+                fontFamily={codeFont}
+                fontSize={codeFontSize}
+              />
+            </Grid>
+            <Grid item xs={1} md={4}>
+              <InputBox />
+            </Grid>
+          </Grid>
         </Box>
       </Layout>
     </Box>
