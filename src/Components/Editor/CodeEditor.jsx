@@ -4,7 +4,13 @@ import { Button } from "@mui/material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = ({ codeLanguage, theme, fontFamily, fontSize }) => {
+const CodeEditor = ({
+  codeLanguage,
+  theme,
+  fontFamily,
+  fontSize,
+  setUserCode,
+}) => {
   return (
     <Box>
       <Editor
@@ -32,6 +38,7 @@ const CodeEditor = ({ codeLanguage, theme, fontFamily, fontSize }) => {
         theme={theme}
         height="80vh"
         width="100%"
+        onChange={(code) => setUserCode(code)}
       />
       <Button
         variant="contained"

@@ -94,7 +94,7 @@ const Layout = ({ children, ...props }) => {
           >
             <DashboardIcon />
           </IconButton>
-          <Typography noWrap component="div">
+          <Typography noWrap component="div" color="text.tertiary">
             <Typography
               variant="h6"
               sx={{

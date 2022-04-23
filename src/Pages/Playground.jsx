@@ -4,6 +4,7 @@ import Layout from "../Components/Layout/Layout";
 import CodeEditor from "../Components/Editor/CodeEditor";
 
 const Playground = () => {
+  const [userCode, setUserCode] = useState(``);
   // Editor options
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [codeTheme, setCodeTheme] = React.useState("vs-dark");
@@ -37,6 +38,7 @@ const Playground = () => {
       >
         <Box sx={{ height: "80vh" }}>
           <CodeEditor
+            setUserCode={setUserCode}
             codeLanguage={codeLanguage}
             theme={codeTheme}
             fontFamily={codeFont}
