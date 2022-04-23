@@ -1,14 +1,16 @@
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Box } from "@mui/material";
 
 export default function ThemeSelect({ codeTheme, handleChange }) {
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id="demo-select-small">Code Theme</InputLabel>
+    <Box width="100%">
+      <InputLabel sx={{ mb: 1 }}>Code Theme</InputLabel>
       <Select
+        fullWidth
+        size="small"
         labelId="demo-select-small"
         id="demo-select-small"
         value={codeTheme}
@@ -18,6 +20,6 @@ export default function ThemeSelect({ codeTheme, handleChange }) {
         <MenuItem value="vs-dark">Dark</MenuItem>
         <MenuItem value="light">Light</MenuItem>
       </Select>
-    </FormControl>
+    </Box>
   );
 }
