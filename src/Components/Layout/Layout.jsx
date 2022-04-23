@@ -12,10 +12,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import CodeOffIcon from "@mui/icons-material/CodeOff";
-import ThemeSelect from "../Select/ThemeSelect";
+import ThemeSelect from "../EditorOptions/Select/ThemeSelect";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Stack } from "@mui/material";
-import FontSelect from "../Select/FontSelect";
+import FontSelect from "../EditorOptions/Select/FontSelect";
+import FontSize from "../EditorOptions/FontSize/FontSize";
 
 const drawerWidth = 240;
 
@@ -46,10 +47,18 @@ const Layout = ({ children, ...props }) => {
             handleChange={props.handleThemeSelect}
           />
         </ListItem>
+        <Divider />
         <ListItem>
           <FontSelect
             font={props.codeFont}
             handleChange={props.handleFontFamilyChange}
+          />
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <FontSize
+            fontSize={props.codeFontSize}
+            handleChange={props.handleChangeFontSize}
           />
         </ListItem>
         <Divider />

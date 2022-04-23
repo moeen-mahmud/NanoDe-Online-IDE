@@ -8,11 +8,25 @@ const CodeEditor = ({ theme, fontFamily, fontSize }) => {
   return (
     <Box>
       <Editor
+        language="javascript"
         options={{
-          fontSize: 20,
+          fontSize: fontSize,
           fontFamily: fontFamily,
           fontLigatures: "true",
           minimap: { size: "fill" },
+          smoothScrolling: true,
+          smartSelect: true,
+          wordWrap: "on",
+          wordBasedSuggestions: true,
+          quickSuggestions: true,
+          autoClosingQuotes: "always",
+          snippetSuggestions: "bottom",
+          suggest: true,
+          copyWithSyntaxHighlighting: true,
+          cursorBlinking: "expand",
+          cursorStyle: "line",
+          cursorSmoothCaretAnimation: true,
+          cursorWidth: 4,
         }}
         theme={theme}
         height="80vh"
