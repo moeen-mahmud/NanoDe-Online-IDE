@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Box } from "@mui/material";
 
+// It can be found on /languages endpoin
 const languageData = [
   {
     language_id: 50,

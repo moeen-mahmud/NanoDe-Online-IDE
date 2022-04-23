@@ -1,22 +1,33 @@
 import React, { useState } from "react";
 import { Box } from "@mui/system";
+import { Button, Container, Grid, Stack } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+
+// Components
 import Layout from "../Components/Layout/Layout";
 import CodeEditor from "../Components/Editor/CodeEditor";
-import { Button, Container, Grid, Stack } from "@mui/material";
 import InputBox from "../Components/InputBox/InputBox";
 import OutputBox from "../Components/OutputBox/OutputBox";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
-import axios from "axios";
-import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
 import CodeInformationBox from "../Components/CodeInformationBox/CodeInformationBox";
-import { LoadingButton } from "@mui/lab";
+
+// Axios
+import axios from "axios";
+
+// Icons
+import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import LayersClearIcon from "@mui/icons-material/LayersClear";
 
+// Loader
+import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
+
+// Small utility function for decoding the base64 data
 function decodeBase64(str) {
   return decodeURIComponent(window.atob(str));
 }
 
+// Main
 const Playground = () => {
+  // Loading state
   const [isLoading, setIsLoading] = useState(false);
 
   // Compiling
@@ -126,6 +137,8 @@ const Playground = () => {
           } else {
             // Decoding
             const decodeStdOutput = decodeBase64(submissionStdOut);
+
+            // setting
             setCompilerInfos({
               compileOutput: decodeStdOutput,
               status: submissionStatus,
@@ -140,6 +153,8 @@ const Playground = () => {
     } catch (err) {
       console.log("Error", err.message);
     } finally {
+      // Everytime this will render
+      // and turn off the loading
       setIsLoading(false);
     }
   };
@@ -147,6 +162,8 @@ const Playground = () => {
   // Handle Reset
   const handleReset = (e) => {
     e.preventDefault();
+
+    // Set everything to its default
     setUserCode(``);
     setUserInput(``);
     setCodeLanguage("c");
@@ -161,6 +178,7 @@ const Playground = () => {
 
   return (
     <Box>
+      {/* Layout */}
       <Layout
         codeLanguage={codeLanguage}
         handleLanguageChange={handleLanguageChange}
@@ -172,6 +190,7 @@ const Playground = () => {
         codeFontSize={codeFontSize}
         handleChangeFontSize={handleChangeFontSize}
       >
+        {/* This will render when the api gets called */}
         <PrimaryLinearProgress
           isLoading={isLoading}
           setIsLoading={setIsLoading}
@@ -184,6 +203,7 @@ const Playground = () => {
             rowSpacing={{ xs: 2 }}
           >
             <Grid item xs={1} md={8}>
+              {/* Code Editor */}
               <CodeEditor
                 setUserCode={setUserCode}
                 codeLanguage={codeLanguage}
@@ -193,7 +213,10 @@ const Playground = () => {
               />
             </Grid>
             <Grid item xs={1} md={4}>
+              {/* Inputbox */}
               <InputBox userInput={userInput} handleChange={handleUserInput} />
+
+              {/* Information box */}
               <CodeInformationBox
                 status={compilerInfos?.status}
                 execTime={compilerInfos?.executionTime}
@@ -238,6 +261,7 @@ const Playground = () => {
             </Grid>
           </Grid>
           <Box mt={3}>
+            {/* Output box */}
             <OutputBox
               status={compilerInfos?.status}
               outputData={compilerInfos?.compileOutput}

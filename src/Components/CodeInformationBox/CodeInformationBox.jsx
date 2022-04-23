@@ -55,7 +55,7 @@ const CodeInformationBox = ({ execTime, execMemory, status }) => {
                 <TableCell component="th" scope="row">
                   Time takes
                 </TableCell>
-                <TableCell align="right">{execTime}</TableCell>
+                <TableCell align="right">{execTime}s</TableCell>
               </TableRow>
             )}
             {execMemory && (
@@ -65,7 +65,7 @@ const CodeInformationBox = ({ execTime, execMemory, status }) => {
                 <TableCell component="th" scope="row">
                   Memory Used
                 </TableCell>
-                <TableCell align="right">{execMemory}</TableCell>
+                <TableCell align="right">{execMemory}kb</TableCell>
               </TableRow>
             )}
           </TableBody>

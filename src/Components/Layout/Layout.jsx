@@ -7,20 +7,20 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import CodeOffIcon from "@mui/icons-material/CodeOff";
 import ThemeSelect from "../EditorOptions/Select/ThemeSelect";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Stack } from "@mui/material";
+import { Link, Stack } from "@mui/material";
 import FontSelect from "../EditorOptions/Select/FontSelect";
 import FontSize from "../EditorOptions/FontSize/FontSize";
 import LanguageSelect from "../EditorOptions/Select/LanguageSelect";
 
+// Drawer width
 const drawerWidth = 240;
 
+// Layout
 const Layout = ({ children, ...props }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -28,6 +28,7 @@ const Layout = ({ children, ...props }) => {
     setMobileOpen(!mobileOpen);
   };
 
+  // Drawer component
   const drawer = (
     <div>
       <Stack
@@ -72,12 +73,49 @@ const Layout = ({ children, ...props }) => {
         </ListItem>
         <Divider />
       </List>
+      <Box sx={{ position: "absolute", bottom: 0, width: "100%", p: 2 }}>
+        <Typography
+          component="p"
+          variant="caption"
+          color="text.muted"
+          textAlign="center"
+        >
+          Made with ❤️ by{" "}
+          <Typography variant="caption" component="span">
+            <Link
+              href="https://github.com/moeen-mahmud/"
+              target="_blank"
+              sx={{ cursor: "pointer" }}
+              color="text.tertiary"
+            >
+              Moeen Mahmud
+            </Link>
+          </Typography>
+        </Typography>
+        <Typography
+          variant="caption"
+          component="p"
+          color="text.muted"
+          textAlign="center"
+        >
+          For{" "}
+          <Link
+            href="https://www.hirekarma.org/home"
+            target="_blank"
+            sx={{ cursor: "pointer" }}
+            color="text.tertiary"
+          >
+            Hirekarma
+          </Link>
+        </Typography>
+      </Box>
     </div>
   );
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      {/* Appbar */}
       <AppBar
         position="fixed"
         sx={{
@@ -112,6 +150,7 @@ const Layout = ({ children, ...props }) => {
           </Typography>
         </Toolbar>
       </AppBar>
+      {/* Main drawers */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
