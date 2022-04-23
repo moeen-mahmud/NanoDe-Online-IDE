@@ -4,6 +4,7 @@ import Layout from "../Components/Layout/Layout";
 import CodeEditor from "../Components/Editor/CodeEditor";
 import { Grid } from "@mui/material";
 import InputBox from "../Components/InputBox/InputBox";
+import OutputBox from "../Components/OutputBox/OutputBox";
 
 const Playground = () => {
   const [userCode, setUserCode] = useState(``);
@@ -63,6 +64,9 @@ const Playground = () => {
               <InputBox />
             </Grid>
           </Grid>
+          <Box mt={3}>
+            <OutputBox />
+          </Box>
         </Box>
       </Layout>
     </Box>
