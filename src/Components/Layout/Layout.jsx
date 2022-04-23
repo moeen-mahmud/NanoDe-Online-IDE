@@ -45,6 +45,7 @@ const Layout = ({ children, ...props }) => {
         <LanguageSelect
           language={props.codeLanguage}
           handleChange={props.handleLanguageChange}
+          handleLanguageID={props.handleLanguageID}
         />
       </ListItem>
       <Divider />

@@ -7,12 +7,17 @@ const Playground = () => {
   const [userCode, setUserCode] = useState(``);
   // Editor options
   const [codeLanguage, setCodeLanguage] = useState("c");
+  const [languageID, setLanguageID] = useState(50);
+
   const [codeTheme, setCodeTheme] = React.useState("vs-dark");
   const [codeFont, setCodeFont] = React.useState("'Fira Code', monospace");
   const [codeFontSize, setCodeFontSize] = React.useState(18);
 
   const handleLanguageChange = (event) => {
     setCodeLanguage(event.target.value);
+  };
+  const handleLanguageID = (value) => {
+    setLanguageID(value);
   };
   const handleThemeChange = (event) => {
     setCodeTheme(event.target.value);
@@ -24,11 +29,14 @@ const Playground = () => {
     setCodeFontSize(event.target.value);
   };
 
+  console.log(languageID);
+
   return (
     <Box>
       <Layout
         codeLanguage={codeLanguage}
         handleLanguageChange={handleLanguageChange}
+        handleLanguageID={handleLanguageID}
         themeSelect={codeTheme}
         handleThemeSelect={handleThemeChange}
         codeFont={codeFont}
