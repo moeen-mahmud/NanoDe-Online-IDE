@@ -44,6 +44,7 @@ export default function LanguageSelect({
       >
         {languageData.map((langs) => (
           <MenuItem
+            key={langs.language_id}
             onClick={() => handleLanguageID(langs.language_id)}
             value={langs.name}
           >

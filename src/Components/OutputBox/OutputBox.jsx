@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { FilledInput, Stack, Typography } from "@mui/material";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 
-const OutputBox = () => {
+const OutputBox = ({ outputData }) => {
   return (
     <Box width="100%">
       <Stack direction="row" alignItems="center" mb={2} gap={1}>
@@ -12,7 +12,7 @@ const OutputBox = () => {
           Output
         </Typography>
       </Stack>
-      <FilledInput multiline rows={5} fullWidth />
+      <FilledInput value={outputData} readOnly multiline rows={5} fullWidth />
     </Box>
   );
 };
