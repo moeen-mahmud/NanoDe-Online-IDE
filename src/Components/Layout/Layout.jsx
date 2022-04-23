@@ -17,6 +17,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Stack } from "@mui/material";
 import FontSelect from "../EditorOptions/Select/FontSelect";
 import FontSize from "../EditorOptions/FontSize/FontSize";
+import LanguageSelect from "../EditorOptions/Select/LanguageSelect";
 
 const drawerWidth = 240;
 
@@ -39,6 +40,13 @@ const Layout = ({ children, ...props }) => {
       >
         <DashboardIcon /> <Typography variant="subtitle1">Settings</Typography>
       </Stack>
+      <Divider />
+      <ListItem>
+        <LanguageSelect
+          language={props.codeLanguage}
+          handleChange={props.handleLanguageChange}
+        />
+      </ListItem>
       <Divider />
       <List>
         <ListItem>
@@ -98,7 +106,7 @@ const Layout = ({ children, ...props }) => {
               <CodeOffIcon /> NanoDE
             </Typography>
             <Typography variant="subtitle2" color="text.muted">
-              Write CPP code faster
+              Write nano code snippets effeciently
             </Typography>
           </Typography>
         </Toolbar>

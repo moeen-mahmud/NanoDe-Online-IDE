@@ -4,16 +4,17 @@ import { Button } from "@mui/material";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = ({ theme, fontFamily, fontSize }) => {
+const CodeEditor = ({ codeLanguage, theme, fontFamily, fontSize }) => {
   return (
     <Box>
       <Editor
-        language="javascript"
+        language={codeLanguage}
+        defaultLanguage="c"
         options={{
           fontSize: fontSize,
           fontFamily: fontFamily,
           fontLigatures: "true",
-          minimap: { size: "fill" },
+          minimap: { size: "fit" },
           smoothScrolling: true,
           smartSelect: true,
           wordWrap: "on",
