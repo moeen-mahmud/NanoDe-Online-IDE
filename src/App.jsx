@@ -9,6 +9,7 @@ const Playground = React.lazy(() => import("./Pages/Playground"));
 function App() {
   const { theme } = useCustomTheme();
 
+  // Added comment
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
