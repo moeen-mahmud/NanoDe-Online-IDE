@@ -92,22 +92,6 @@ const Layout = ({ children, ...props }) => {
             </Link>
           </Typography>
         </Typography>
-        <Typography
-          variant="caption"
-          component="p"
-          color="text.muted"
-          textAlign="center"
-        >
-          For{" "}
-          <Link
-            href="https://www.hirekarma.org/home"
-            target="_blank"
-            sx={{ cursor: "pointer" }}
-            color="text.tertiary"
-          >
-            Hirekarma
-          </Link>
-        </Typography>
       </Box>
     </div>
   );
