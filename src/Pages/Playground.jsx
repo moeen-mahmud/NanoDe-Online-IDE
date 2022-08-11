@@ -54,9 +54,10 @@ const Playground = () => {
 
   // Key press effects
   useEffect(() => {
-    if (enterKeyPress && controlKeyPress) {
-      console.log("Control + Enter pressed");
-      handleRunCode();
+    if (userCode?.trim() !== "") {
+      if (enterKeyPress && controlKeyPress) {
+        handleRunCode();
+      }
     }
   }, [enterKeyPress, controlKeyPress]);
 
