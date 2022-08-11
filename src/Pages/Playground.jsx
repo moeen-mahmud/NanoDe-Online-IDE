@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
-import { Button, Container, Grid, Stack } from "@mui/material";
+import { Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 // Components
@@ -19,6 +19,7 @@ import LayersClearIcon from "@mui/icons-material/LayersClear";
 
 // Loader
 import PrimaryLinearProgress from "../Components/Progress/PrimaryLinearProgress";
+import useKeyPress from "../hooks/useKeyPress";
 
 // Small utility function for decoding the base64 data
 function decodeBase64(str) {
@@ -27,14 +28,18 @@ function decodeBase64(str) {
 
 // Main
 const Playground = () => {
+  // Key press hooks
+  const enterKeyPress = useKeyPress("Enter");
+  const controlKeyPress = useKeyPress("Control");
+
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
 
   // Compiling
   const [userCode, setUserCode] = useState(``);
   const [userInput, setUserInput] = useState([{ line: 0, stdin: `` }]);
-  const [codeLanguage, setCodeLanguage] = useState("c");
-  const [languageID, setLanguageID] = useState(50);
+  const [codeLanguage, setCodeLanguage] = useState("javascript");
+  const [languageID, setLanguageID] = useState(63);
   const [compilerInfos, setCompilerInfos] = useState({
     executionTime: "",
     executionMemory: "",
@@ -46,6 +51,14 @@ const Playground = () => {
   const [codeTheme, setCodeTheme] = useState("vs-dark");
   const [codeFont, setCodeFont] = useState("'Fira Code', monospace");
   const [codeFontSize, setCodeFontSize] = useState(14);
+
+  // Key press effects
+  useEffect(() => {
+    if (enterKeyPress && controlKeyPress) {
+      console.log("Control + Enter pressed");
+      handleRunCode();
+    }
+  }, [enterKeyPress, controlKeyPress]);
 
   // Event handlers
 
@@ -92,7 +105,7 @@ const Playground = () => {
 
   // Handle Code Run
   const handleRunCode = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setIsLoading(true);
 
     // Post the user codes
@@ -188,8 +201,8 @@ const Playground = () => {
     // Set everything to its default
     setUserCode(``);
     setUserInput([{ line: 0, stdin: `` }]);
-    setCodeLanguage("c");
-    setLanguageID(50);
+    setCodeLanguage("javascript");
+    setLanguageID(63);
     setCompilerInfos({
       executionMemory: "",
       executionTime: "",
@@ -259,16 +272,28 @@ const Playground = () => {
                     Loading
                   </LoadingButton>
                 ) : (
-                  <Button
-                    disabled={userCode?.trim() !== "" ? false : true}
-                    onClick={handleRunCode}
-                    variant="contained"
-                    color="tertiary"
-                    startIcon={<RocketLaunchIcon />}
-                    fullWidth
-                  >
-                    Run
-                  </Button>
+                  <>
+                    <Button
+                      disabled={userCode?.trim() !== "" ? false : true}
+                      onClick={handleRunCode}
+                      variant="contained"
+                      color="tertiary"
+                      startIcon={<RocketLaunchIcon />}
+                      fullWidth
+                    >
+                      Run
+                    </Button>
+                    <Typography
+                      variant="caption"
+                      color={
+                        userCode?.trim() !== ""
+                          ? "text.secondary"
+                          : "text.muted"
+                      }
+                    >
+                      Press Ctrl + Enter to run
+                    </Typography>
+                  </>
                 )}
                 {compilerInfos?.status ? (
                   <Button

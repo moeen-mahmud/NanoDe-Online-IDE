@@ -1,15 +1,8 @@
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import {
-  Autocomplete,
-  Box,
-  OutlinedInput,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Autocomplete, Box, TextField, Typography } from "@mui/material";
 
-// It can be found on /languages endpoin
+// It can be found on /languages endpoint
 const languageData = [
   {
     language_id: 63,
