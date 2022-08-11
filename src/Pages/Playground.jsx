@@ -32,7 +32,7 @@ const Playground = () => {
 
   // Compiling
   const [userCode, setUserCode] = useState(``);
-  const [userInput, setUserInput] = useState(``);
+  const [userInput, setUserInput] = useState([{ line: 0, stdin: `` }]);
   const [codeLanguage, setCodeLanguage] = useState("c");
   const [languageID, setLanguageID] = useState(50);
   const [compilerInfos, setCompilerInfos] = useState({
@@ -48,23 +48,50 @@ const Playground = () => {
   const [codeFontSize, setCodeFontSize] = useState(14);
 
   // Event handlers
+
+  // Changing languages
   const handleLanguageChange = (event) => {
     setCodeLanguage(event.target.value);
   };
+
+  // Language ID handlers
   const handleLanguageID = (value) => {
     setLanguageID(value);
   };
+
+  // Theme handlers
   const handleThemeChange = (event) => {
     setCodeTheme(event.target.value);
   };
+
+  // Font Handlers
   const handleFontFamilyChange = (event) => {
     setCodeFont(event.target.value);
   };
+
+  // Font size handlers
   const handleChangeFontSize = (event) => {
     setCodeFontSize(event.target.value);
   };
-  const handleUserInput = (event) => {
-    setUserInput(event.target.value);
+
+  // Handling user input
+  const handleUserInput = (event, index) => {
+    const newStdIn = event.target.value;
+    const stdInValues = [...userInput];
+    userInput[index].stdin = newStdIn;
+    setUserInput(stdInValues);
+  };
+
+  // Handling new line
+  const handleAddNewLine = (event, value) => {
+    if (event.key === "Enter") {
+      setUserInput((set) => [...set, { line: userInput.length, stdin: `` }]);
+    }
+    if (userInput.length > 1 && event.key === "Backspace" && value === "") {
+      if (event.key === "Backspace") {
+        setUserInput((set) => set.slice(0, -1));
+      }
+    }
   };
 
   // Handle Code Run
@@ -214,7 +241,11 @@ const Playground = () => {
             </Grid>
             <Grid item xs={1} md={4}>
               {/* Inputbox */}
-              <InputBox userInput={userInput} handleChange={handleUserInput} />
+              <InputBox
+                userInput={userInput}
+                handleChange={handleUserInput}
+                handleAddNewLine={handleAddNewLine}
+              />
 
               {/* Information box */}
               <CodeInformationBox

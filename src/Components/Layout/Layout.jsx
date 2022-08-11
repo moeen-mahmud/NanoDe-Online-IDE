@@ -129,7 +129,7 @@ const Layout = ({ children, ...props }) => {
               <CodeOffIcon /> NanoDE
             </Typography>
             <Typography variant="subtitle2" color="text.muted">
-              Write nano code snippets effeciently
+              Write nano code snippets efficiently
             </Typography>
           </Typography>
         </Toolbar>
