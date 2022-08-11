@@ -1,11 +1,41 @@
 import * as React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { Box } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 // It can be found on /languages endpoin
 const languageData = [
+  {
+    language_id: 63,
+    name: "javascript",
+    label: "JavaScript",
+  },
+  {
+    language_id: 74,
+    name: "typescript",
+    label: "TypeScript",
+  },
+  {
+    language_id: 71,
+    name: "python",
+    label: "Python 3",
+  },
+  {
+    language_id: 73,
+    name: "rust",
+    label: "Rust",
+  },
+  {
+    language_id: 60,
+    name: "go",
+    label: "Go",
+  },
   {
     language_id: 50,
     name: "c",
@@ -26,58 +56,42 @@ const languageData = [
     name: "csp",
     label: "C#",
   },
-  {
-    language_id: 71,
-    name: "python",
-    label: "Python 3",
-  },
-  {
-    language_id: 63,
-    name: "javascript",
-    label: "JavaScript",
-  },
-  {
-    language_id: 73,
-    name: "rust",
-    label: "Rust",
-  },
-  {
-    language_id: 74,
-    name: "typescript",
-    label: "TypeScript",
-  },
-  {
-    language_id: 60,
-    name: "go",
-    label: "Go",
-  },
 ];
 
-export default function LanguageSelect({
-  language,
-  handleChange,
-  handleLanguageID,
-}) {
+export default function LanguageSelect({ language, handleChange }) {
   return (
     <Box width="100%">
       <InputLabel sx={{ mb: 1 }}>Language</InputLabel>
-      <Select
+      <Autocomplete
         fullWidth
+        options={languageData}
+        getOptionLabel={(option) => option.label}
         size="small"
-        value={language}
-        label="Language"
+        defaultValue={languageData[0]}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
         onChange={handleChange}
-      >
-        {languageData.map((langs) => (
-          <MenuItem
-            key={langs.language_id}
-            onClick={() => handleLanguageID(langs.language_id)}
-            value={langs.name}
+        renderOption={(props, option) => (
+          <Box
+            component="li"
+            sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+            {...props}
           >
-            {langs.label}
-          </MenuItem>
-        ))}
-      </Select>
+            <Typography component="p" variant="subtitle2">
+              {option.label}
+            </Typography>
+          </Box>
+        )}
+        renderInput={(params) => (
+          <TextField
+            color="primary"
+            {...params}
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: "new-password",
+            }}
+          />
+        )}
+      />
     </Box>
   );
 }

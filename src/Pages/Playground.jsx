@@ -50,13 +50,9 @@ const Playground = () => {
   // Event handlers
 
   // Changing languages
-  const handleLanguageChange = (event) => {
-    setCodeLanguage(event.target.value);
-  };
-
-  // Language ID handlers
-  const handleLanguageID = (value) => {
-    setLanguageID(value);
+  const handleLanguageChange = (event, newValue) => {
+    setCodeLanguage(newValue?.name);
+    setLanguageID(newValue?.language_id);
   };
 
   // Theme handlers
@@ -117,7 +113,6 @@ const Playground = () => {
       );
       // Post response data
       const data = response.data;
-      console.log(data);
 
       // Check whether the token is getting
       if (data?.token) {
@@ -209,7 +204,6 @@ const Playground = () => {
       <Layout
         codeLanguage={codeLanguage}
         handleLanguageChange={handleLanguageChange}
-        handleLanguageID={handleLanguageID}
         themeSelect={codeTheme}
         handleThemeSelect={handleThemeChange}
         codeFont={codeFont}
@@ -266,7 +260,7 @@ const Playground = () => {
                   </LoadingButton>
                 ) : (
                   <Button
-                    disabled={userCode ? false : true}
+                    disabled={userCode?.trim() !== "" ? false : true}
                     onClick={handleRunCode}
                     variant="contained"
                     color="tertiary"
@@ -278,7 +272,7 @@ const Playground = () => {
                 )}
                 {compilerInfos?.status ? (
                   <Button
-                    disabled={userCode ? false : true}
+                    disabled={userCode?.trim() !== "" ? false : true}
                     onClick={handleReset}
                     variant="contained"
                     color="secondary"
