@@ -26,6 +26,31 @@ const languageData = [
     name: "csp",
     label: "C#",
   },
+  {
+    language_id: 71,
+    name: "python",
+    label: "Python 3",
+  },
+  {
+    language_id: 63,
+    name: "javascript",
+    label: "JavaScript",
+  },
+  {
+    language_id: 73,
+    name: "rust",
+    label: "Rust",
+  },
+  {
+    language_id: 74,
+    name: "typescript",
+    label: "TypeScript",
+  },
+  {
+    language_id: 60,
+    name: "go",
+    label: "Go",
+  },
 ];
 
 export default function LanguageSelect({

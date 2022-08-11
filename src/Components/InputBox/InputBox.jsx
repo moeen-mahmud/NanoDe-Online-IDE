@@ -1,19 +1,37 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Box } from "@mui/system";
 import { FilledInput, OutlinedInput, Stack, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpPopper from "../Utility/helpPopper";
 
 const InputBox = ({ userInput, handleChange, handleAddNewLine }) => {
-  // Focus ref
-  const inputFocusRef = useRef();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [placement, setPlacement] = React.useState();
+
+  // Handle show popper
+  const handleHelpPopper = (newPlacement) => (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((prev) => placement !== newPlacement || !prev);
+    setPlacement(newPlacement);
+  };
 
   return (
     <Box>
-      <Stack direction="row" alignItems="center" mb={2} gap={1}>
-        <PersonIcon sx={{ color: "#00E0C4" }} />
-        <Typography variant="subtitle1" color="text.secondary">
-          Input
-        </Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack direction="row" alignItems="center" mb={2} gap={1}>
+          <PersonIcon sx={{ color: "#00E0C4" }} />
+          <Typography variant="subtitle1" color="text.secondary">
+            Input
+          </Typography>
+        </Stack>
+        <Box>
+          <HelpOutlineIcon
+            onClick={handleHelpPopper("right-start")}
+            sx={{ cursor: "pointer", color: "#00E0C4", mt: -1 }}
+          />
+        </Box>
       </Stack>
       {userInput?.map((input, index) => (
         <Box
@@ -47,6 +65,7 @@ const InputBox = ({ userInput, handleChange, handleAddNewLine }) => {
           />
         </Box>
       ))}
+      <HelpPopper anchorEl={anchorEl} open={open} placement={placement} />
     </Box>
   );
 };

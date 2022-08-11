@@ -106,7 +106,7 @@ const Playground = () => {
         {
           language_id: languageID,
           source_code: userCode,
-          stdin: userInput,
+          stdin: userInput.reduce((acc, curr) => acc + " " + curr.stdin, ``),
         },
         {
           headers: {
@@ -192,7 +192,7 @@ const Playground = () => {
 
     // Set everything to its default
     setUserCode(``);
-    setUserInput(``);
+    setUserInput([{ line: 0, stdin: `` }]);
     setCodeLanguage("c");
     setLanguageID(50);
     setCompilerInfos({
