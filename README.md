@@ -42,8 +42,8 @@ The challenge was to develop a minimal code editor with multiple language suppor
 
 #### Links
 
-Live Site: https://nanode.vercel.app/
-Source Code: https://github.com/moeen-mahmud/NanoDe-Online-IDE
+- Live Site: https://nanode.vercel.app/
+- Source Code: https://github.com/moeen-mahmud/NanoDe-Online-IDE
 
 ### My Process
 
