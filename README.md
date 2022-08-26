@@ -79,11 +79,6 @@ Source Code: https://github.com/moeen-mahmud/NanoDe-Online-IDE
 - [Judge0](https://judge0.com/) - This is the official documentation of Judge0 API. It has a lot of examples and API documentation.
 - [Monaco React](https://github.com/moeen-mahmud/NanoDe-Online-IDE) - This is the official documentation of Monaco React. It has a lot of examples and API documentation.
 
-#### Articles
-
-- [Make your own online compiler with React](https://medium.com/dsckiit/make-your-own-online-compiler-in-react-%EF%B8%8F-b06bc29dd202) - [Akash Gupta](https://medium.com/@akashgp09)
-- [Build an online code compiler using React.js and Node.js](https://www.geeksforgeeks.org/build-an-online-code-compiler-using-react-js-and-node-js/) - Geeks for Geeks
-
 ### Author
 
 - [GitHub](https://github.com/moeen-mahmud)
